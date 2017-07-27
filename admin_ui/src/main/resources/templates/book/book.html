@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Sách</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Cài đặt 1</a>
+                                        </li>
+                                        <li><a href="#">Cài đặt 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input id="search" name="search" type="text" class="form-control"   placeholder="Tìm kiếm..." />
+                                        <div class="input-group-btn">
+                                            <!-- Button and dropdown menu -->
+                                            <button type="button" class="btn btn-primary">Tìm kiếm</button>
+                                            <!--<div class="btn-group" role="group">-->
+                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Lọc  <span class="caret"></span>
+                                            </button>
+                                            <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li id="code" class="list-group-item"><input type="radio" class="flat" checked="checked" name="iCheck"/>Mã sách </li>
+                                                <li id="name" class="list-group-item"><input type="radio" class="flat" name="iCheck"/> Tên sách  </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Thể loại </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tác giả </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Nhà xuất bản </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Giá </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Số lượng </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Phiên bản </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Năm xuất bản </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày xuất bản </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày chỉnh sửa </li>
+                                                </ul>
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th>
+                                                    <input type="checkbox" id="check-all" class="flat"/>
+                                                </th>
+                                                <th class="column-title">Mã sách</th>
+                                                <th class="column-title">Tên sách</th>
+                                                <th class="column-title">Số lượng</th>
+                                                <th class="column-title">Trạng thái</th>
+                                                <th class="column-title">Hình</th>
+                                                <th class="column-title">Chi tiết</th>
+                                                <th class="column-title">Chỉnh sửa</th>
+                                            <th class="column-title">Xóa</th>
+
+
+                                            <th class="bulk-actions" colspan="7">
+                                                <a class="antoo" style="color:#fff; font-weight:500;">Chọn tất cả ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="item:${list}" class="even pointer">
+                                        <td class="a-center ">
+                                            <input type="checkbox" class="flat" name="table_records"/>
+                                        </td>
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.title}"></td>
+                                        <td th:text="${item.quantity}"></td>
+                                        <td class=" "><input type="checkbox" class="js-switch" checked="checked" /></td>
+                                        <td class=" "><img th:src="${item.image}" height="150"  width="100"/></td>
+                                        <td class=" "><button type="button" class="btn btn-info btndetail" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                        <td class=" "><a th:href="@{/admin/editbook/{id}(id=${item.id})}"><button type="button" class="btn btn-danger"><i class="fa fa-edit"></i></button> </a> </td>
+                                        <td class=" "><a href="#"><button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete-example-modal-lg"><i class="fa fa-trash"></i></button> </a> </td>
+                                        <input class="bookid" type="hidden" th:value="${item.id}" />
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                    <ul style="margin-left: 75%" class="pagination">
+                                        <li th:if="${pagenumber > 1}">
+                                            <a th:href="@{/admin/book(pagenum=${pagenumber - 1})}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'">
+                                            <a th:text="${pag}" th:href="@{/admin/book(pagenum=${pag})}"></a>
+                                        </li>
+                                        <li th:if="!${pagenumber >= totalpage}">
+                                            <a th:href="@{/admin/book(pagenum=${pagenumber + 1})}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Modals-->
+            <div class="modal fade detail-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Book's information</h4>
+                        </div>
+                        <div class="modal-body" id="modelcontent">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="deletemodal" class="modal fade delete-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div id="deletedialog" class="modal-dialog modal-lg">
+                    <div id="deletecontent" class="modal-content">
+                        <div id="deletevody" class="modal-body">
+                            <h2>Bạn có chắc chắn muốn xóa!</h2>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-default">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">-->
+                <!--<div class="modal-dialog modal-sm" role="alertdialog">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                            <!--<h4 class="modal-title">Delete</h4>-->
+                        <!--</div>-->
+                        <!--<div class="modal-body">-->
+                            <!--<p>Do you want to delete ?</p>-->
+                        <!--</div>-->
+                        <!--<div class="modal-footer">-->
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                            <!--<button type="button" class="btn btn-danger">Delete</button>-->
+                        <!--</div>-->
+                    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--Modals-->
+            <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                $(document).ready(function ()
+                    {
+                        $('.btndetail').click(function () {
+                            value = $(this).parent().parent().children('.bookid').val();
+                            $.ajax({
+                                method: "GET",
+                                url: "/admin/bookdetail",
+                                data:{bookid:parseInt(value)},
+                                dataType: "text",
+                                success:function (string) {
+                                    html = '';
+                                    var json = JSON.parse(string);
+//                                var mydate = new Date(json.birthDay.toString());
+                                    html += '<form class="form-horizontal">'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Tên sách</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.title+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Thể loại</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.category.categoryName+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Tác giả</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.author[0].authorName+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Giá</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.price+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Số Lượng</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.quantity+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Phiên bản</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.edition+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Ngày tạo</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.dateCreation+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Ngày chỉnh sửa</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+json.dateModified+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</form>' ;
+
+                                    $('#modelcontent').html(html);
+                                }
+                            });
+                        });
+                    }
+                );
+            </script>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Title</title>
+
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Thêm mới Trả sách</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <form  th:action="@{/admin/add}" id="demo-form2" class="form-horizontal form-label-left" enctype="multipart/form-data" th:method="post">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="FullName">Tên độc giả<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!--<input type="text" id="FullName" required="required" class="form-control col-md-7 col-xs-12" />-->
+                                        <select  name="reader" id="FullName" class="select2_single form-control" tabindex="-1" autocomplete="on">
+                                            <option></option>
+                                            <option th:each="item:${list}" th:value="${item.id}" th:text="${item.typeName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày trả<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!--<input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="date"/>-->
+
+                                        <!--<div class="col-md-11 xdisplay_inputx form-group has-feedback">-->
+                                        <input name="returndate" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Return Date" aria-describedby="inputSuccess2Status4"/>
+                                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+
+                            <br/>
+                            <!--list books-->
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_content">
+                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddBook">Thêm sách</button>
+                                                <button id="deletebook" type="button" class="btn btn-danger"  >Xóa sách</button>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped jambo_table bulk_action">
+                                                        <thead>
+                                                            <tr class="headings">
+                                                                <th><input type="checkbox" id="check-all" class="flat"/></th>
+                                                                <th class="column-title">Mã sách</th>
+                                                                <th class="column-title">Tên sách</th>
+                                                                <th class="column-title">Số lượng</th>
+                                                                <th class="column-title">Chi tiết</th>
+
+
+                                                                <th class="bulk-actions" colspan="7">
+                                                                    <a class="antoo" style="color:#fff; font-weight:500;">Chọn tất cả ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="listbook">
+                                                            <tr class="even pointer">
+                                                                <td><input type="checkbox" /></td>
+                                                                <td class=" ">121000040</td>
+                                                                <td class=" ">May 23, 2014 11:47:56 PM </td>
+                                                                <td class=" ">John Blank L</td>
+                                                                <td class=" "><button type="button" class="btn btn-info" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                                            </tr>
+                                                            <tr class="even pointer">
+                                                                <td><input type="checkbox"  /></td>
+                                                                <td class=" ">121000040</td>
+                                                                <td class=" ">May 23, 2014 11:47:56 PM </td>
+                                                                <td class=" ">John Blank L</td>
+                                                                <td class=" "><button type="button" class="btn btn-info" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <button class="btn btn-primary" type="reset">Đóng</button>
+                                        <button type="submit" class="btn btn-success">Thêm</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--list books-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--Modals-->
+            <div class="modal fade detail-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Thông tin sách</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Tên sách</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Giải tích 1</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Thể loại</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Toán</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Tác giả</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Phan Đình Lân</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nhà xuất bản</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">NXB Thanh Niên</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Giá</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">50.000 VNĐ</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Phiên bản</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">2<sup>sd</sup></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Năm xuất bản</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">2010</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Ngày tạo</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">10/12/2011</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Ngày chỉnh sửa</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">10/12/2011</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Hình</label>
+                                    <div class="col-sm-10">
+                                        <img th:src="@{/static/images/download.jpg}" height="350"  width="250"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div class="modal fade" id="AddBook" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Sách</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="demo-form1" class="form-horizontal form-label-left" th:action="@{/admin/addBooktoReturn}">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="book_select">Book
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="book_select" class="select2_single form-control" tabindex="-1" autocomplete="on">
+                                            <option th:each="item:${list}" th:value="${item.id}" th:text="${item.bookName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Quantity">Số lượng
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <input id="Quantity" type="number" class="form-control"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button id="addbook_modal" type="submit" class="btn btn-primary">Thêm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Modals-->
+            <!--Script-->
+            <!-- jQuery -->
+            <script th:src="@{/static/js/jquery-3.1.1.min.js}"></script>
+            <script>
+
+                $(document).ready(function () {
+                    //thêm sách
+                    $('#addbook_modal').click(function () {
+
+
+                        var book_id = $('#book_select').val();
+
+                        var book_name = $( "#book_select option:selected" ).text();
+
+                        var quantity = $('#Quantity').val();
+
+                        $('#listbook').append($.parseHTML('<tr class="even pointer">'+
+                            '<td><input type="checkbox"  /></td>'+
+                            '<td class=" ">'+book_id+'</td>'+
+                            '<td class=" ">'+book_name+'</td>'+
+                            '<td class=" ">'+quantity+'</td>'+
+                            '<td class=" "><button type="button" class="btn btn-info" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>'+
+                            '<input type="hidden" name="books[]" value="'+book_id+'"/>'+
+                            '<input type="hidden" name="quantitys[]" value="'+quantity+'"/>'+
+                            '</tr>'));
+
+                    });
+
+                    //xóa sách
+                    $('#deletebook').click(function () {
+                        $('input:checked').closest('tr').remove();
+                    });
+
+                });
+            </script>
+        </div>
+    </body>
+</html>

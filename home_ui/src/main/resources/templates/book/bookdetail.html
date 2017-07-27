@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-md-6">
+                    <img class="book_detail_image"  th:src="@{${book.getImage()}+''}" />
+                </div>
+                <div class="col-md-6 col-sm-6 col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 th:text="${book.getTitle()}"></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Mã sách</label>
+                                    <div class="col-sm-8">
+                                        <p id="bookid" class="form-control-static"  th:text="${book.getId()}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Thể loại</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"  th:text="${book.getCategory().getCategoryName()}"> </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Tác giả</label>
+                                    <div class="col-sm-8">
+                                        <p th:each="authors : ${book.getAuthor()}" class="form-control-static" th:text="${authors.getAuthorName()}"> </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Nhà xất bản</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"  th:text="${book.getPublisher().getPublisherName()}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Giá bán</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"  th:text="${book.getPrice()}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Số lượng</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"  th:text="${book.getQuantity()}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Lần xuất bản</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"  th:text=" ${book.getEdition()}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <button class="btn btn-primary" id="reservebookdetail" >Mượn sách</button>
+                                        <input type="hidden" class="bookid"  th:value="${book.getId()}" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--modal-->
+            <div class="modal fade" id="reserve" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-info" role="alert">Bạn có chắc chắn muốn mượn sách</div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button id="reservebook" type="button" class="btn btn-primary">Mượn sách</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="successfulbookreservationalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-success successfulalert" role="alert"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--script-->
+            <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                $(document).ready(function () {
+                    $('#reservebookdetail').click(function () {
+                        value = $(this).parent().children('.bookid').val();
+//                        alert(value);
+                        $('#reserve').modal('show');
+                    });
+                    $('#reservebook').click(function() {
+
+                        $.ajax({
+                            method: "GET",
+                            url: "/home/Reserve",
+                            data:{bookid:parseInt(value)},
+                            dataType: "text",
+                            success:function (string) {
+                                $('#reserve').modal('hide');
+                                $('div.successfulalert').text( string);
+                                $('#successfulbookreservationalert').modal('show');
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>

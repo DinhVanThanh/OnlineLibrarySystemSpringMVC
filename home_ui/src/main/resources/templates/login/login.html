@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <meta charset="UTF-8" />
+        <title>LiMS Online</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap-theme.css}">
+        <!-- Fontawesome core CSS -->
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}" />
+        <!--GOOGLE FONT -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/css/login.css}">
+
+
+
+    </head>
+    <body>
+        <section id="login">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="alert alert-success" role="alert" th:if="${logout}!=null" th:text="${logout}"></div>
+                        <div class="alert alert-danger" role="alert" th:if="${loginfail}!=null" th:text="${loginfail}"></div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-wrap">
+                            <h1 style="font-size: 16px;">Đăng nhập</h1>
+                            <form role="form" th:action="@{/login}" th:method="post" id="login-form" autocomplete="off">
+                                <div class="form-group">
+                                    <label for="email" class="sr-only">Username</label>
+                                    <input type="text" name="username" id="email" class="form-control" placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="key" class="sr-only">Password</label>
+                                    <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                                </div>
+                                <div class="checkbox">
+                                    <span class="character-checkbox" onclick="showPassword()"></span>
+                                    <span class="label">Hiện mật khẩu</span>
+                                </div>
+                                <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Đăng nhập">
+                            </form>
+                            <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">Quên mật khẩu !</a>
+                            <hr>
+                        </div>
+                    </div> <!-- /.col-xs-12 -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </section>
+        <div id="forgotpassword" class="modal fade forget-modal" tabindex="-1" role="dialog" aria-labelledby="myForgetModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                            <span class="sr-only">Đóng</span>
+                        </button>
+                        <h4 class="modal-title">Khôi phục lại mật khẩu</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Nhập email của bạn</p>
+                        <input type="email" name="recoveryemail" id="recoveryemail" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        <button id="recover" type="button" class="btn btn-custom">Khôi phục</button>
+                    </div>
+                </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <div class="modal fade" id="sendingemailsuccesful" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="alert alert-success" id="successfulalert" role="alert"></div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Bản quyền thuộc về University Of Pedagogy © - 2017</h4>
+                        <h4>Thiết kế bởi <br/>
+                            <strong><a>Đinh Văn Thành</a></strong> <br/>
+                            <strong><a>Huỳnh Nguyễn Châu Duy</a></strong><br/>
+                            <strong><a>Diệp Thanh Đạt</a></strong><br/>
+                            <strong><a>Trần Thị Hà</a></strong>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+        <script th:src="@{/js/login.js}"></script>
+        <script type="text/javascript">
+            function validateEmail(email) {
+                var emailReg = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+                return emailReg.test( email );
+            }
+            $(document).ready(function () {
+                $('#recover').click(function () {
+                    if( validateEmail($('#recoveryemail').val()))
+                    {
+                        $.ajax({
+                            method: "GET",
+                            url: "/recoverypassword",
+                            data: {email: $('#recoveryemail').val()},
+                            dataType: "text",
+                            success: function (string) {
+                                $('#successfulalert').text(string);
+                                $('#sendingemailsuccesful').modal('show');
+                            },
+                            error:function (string) {
+                                $('#successfulalert').text("bạn nhập sai địa chỉ email");
+                                $('#forgotpassword').modal('hide');
+                                $('#sendingemailsuccesful').modal('show');
+
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $('#successfulalert').text("bạn nhập sai định dạng email");
+                        $('#sendingemailsuccesful').modal('show');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

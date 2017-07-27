@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <div>
+        <div th:fragment="content">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8"><h3>Trợ giúp sử dụng hệ thống thư viện online</h3></div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <b>Cách đăng kí mượn sách</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="panel-body animated zoomOut">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <li class="material"><b>Chức năng mượn sách</b></li>
+                                                <p>
+                                                    <b>Mục đích:</b> phục vụ nhu cầu đọc sách của sinh viên và giảng viên.
+                                                    <b>Để thực hiện chức năng mượn sách cần phải trải qua các bước :</b></br>
+                                                <ol type="1">
+                                                    <li>Click vào nút  <span style="color:red">Mượn sách</span> </li>
+                                                    <img style="width: 100%" th:src="@{/images/help/MuonSach.png}"  >
+                                                    <li>Thông báo xuất hiện</li>
+                                                    <img style="width: 100%" th:src="@{/images/help/Info_MuonSach.png}"  >
+                                                    <ul>
+                                                        <li>Click vào nút <span style="color:red">Mượn sách</span></li>
+                                                        <li>Thông báo hiện lên : </li>
+                                                        <img style="width: 100%" th:src="@{/images/help/popu_MuonSach.png}"  >
+                                                        <li>Click vào nút  <span style="color:red">Hủy</span> </li>-->Trở về trang chủ
+                                                    </ul>
+                                                    <li>Để xem kết quả mượn sách
+                                                        <ul>
+                                                            <li>Click vào  <span style="color:red">Sách mượn</span></li>
+                                                            <img style="width: 100%" th:src="@{/images/help/Kq_MuonSach1.png}"  >
+                                                            <li style="font-weight:Kết quả được là:"></li>
+                                                            <img style="width: 100%" th:src="@{/images/help/KQ_MuonSach2.png}"  >
+                                                        </ul>
+                                                    </li>
+
+                                                </ol>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <b>Xem tình trạng/lịch sử đăng kí mượn sách</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="panel-body animated zoomOut">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <li class="material">Xem tình trạng đăng ký/mượn sách</li>
+                                                <p><b>Mục đích :</b> nhằm giúp sinh viên, giảng viên thống kê sách đã mượn và đồng thời xem sách đã được mượn nhận hay chưa ,đã giao ,duyệt hay chưa giúp thủ thư thống kê những cuốn sách đang tình trạng nào </p>
+                                                <p><b>Có 2 cách để xem :</b></p>
+                                                <ul>
+                                                    <li>Cách 1: Sau khi đăng ký mượn sách thành công thì click vào <span style="color:red">Kiểm tra kết quả mượn</span></br>
+                                                        <img style="width: 100%" th:src="@{/images/help/C1_LichSuMuonSach.png}"  >
+
+                                                        Sau đó click vào <span style="color:red">Reserve books</span></br>
+                                                        <img style="width: 100%" th:src="@{/images/help/Cach2_Duy_MuonSach_.png}"  >
+
+                                                    </li>
+                                                    <li>Cách 2: Có thể truy cập vào "Thông tin cá nhân"
+                                                        <ol>
+                                                            <li>Vào <span style="color:red">Lịch sử mượn sách</span></li>
+                                                            <li>Vào <span style="color:red">Kết quả</span></br>
+
+                                                                <img style="width: 100%" th:src="@{/images/help/LichSuMuonSach.png}"  >
+                                                            </li>
+                                                        </ol>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <b>Cách hủy đăng kí mượn sách</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="panel-body animated zoomOut">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <li class="material">Chức năng hủy mượn sách</li>
+                                                <p><b>Mục đích :</b> giúp sinh viên ,giảng viên hủy sách đã mượn hay giúp thủ thư hủy những cuốn sách tồn kho .</p>
+                                                <p><b>Để hủy cần trải qua những bước :</b></p>
+                                                <ol type="1">
+                                                    <li>Click vào <span style="color:red">Thông tin cá nhân</span> </li>
+                                                    <img style="width: 100%" th:src="@{/images/help/ToolBar.png}"  >
+                                                    <li>Kéo xuống dưới mục thông tin cá nhân
+                                                        <ul>
+                                                            <li>Click vào <span style="color:red">Lịch sử mượn sách</span> </li>
+                                                            <li>Chuyển sang trang mới </br>
+                                                                <img style="width: 100%" th:src="@{/images/help/LichSuMuonSach.png}"  >
+                                                            </li>
+                                                            <li>Click vào <span style="color:red">Xóa</span> </li>
+                                                            <li>Thông báo hiện lên</li>
+                                                            <img style="width: 100%" th:src="@{/images/help/popup_HuyMuonSach.png}"  >
+                                                            <li>Click vào <span style="color:red">Close</span>: Đóng thông báo và không xóa</li>
+                                                            <li><span style="color:red">Delete</span> : Xóa sách</li>
+                                                            <li>Thông báo hiện lên </br>
+                                                                <img style="width: 100%" th:src="@{/images/help/popup_XacNhanHuy.png}"  >
+                                                            </li>
+                                                            <li><span style="color:red">Close</span>: Đóng thông báo</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><b>Kết quả:</b></li>
+                                                    <img style="width: 100%" th:src="@{/images/help/KQ_HuyMuonSach.png}"  >
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom">
+                        <div class="panel-heading help" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <b>Cách đăng kí đặt mua sách</b>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body animated zoomOut">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <li class="material">Chức năng đặt mua sách</li>
+
+                                            <p><span style="font-weight:bold">Mục đích: </span>Sinh viên, giảng viên có thể đặt mua để sở hữu những quyển sách ưng ý</p>
+                                            <ol type="1">
+                                                <li>Click vào <span style="color:red">Đặt mua sách</span> </li>
+                                                <li>Điền đầy đủ thông tin</br></br>
+                                                    <img style="width: 100%" th:src="@{/images/help/Form_order_Sach.png}" >
+                                                </li>
+
+                                                <li>Sau khi điền đầy đủ thông tin</li>
+                                                <ul>
+                                                    <li>Click vào <span style="color:red">Order</span> để thực hiện chức năng mua sách </li>
+                                                    <li>Click vào <span style="color:red">reset</span> để hủy dữ liệu vừa mới nhập, tiến hành nhập lại thông tin</li>
+                                                </ul>
+                                                <li style="font-weight:bold"> Kết quả</li>
+                                                <img style="width: 100%" th:src="@{/images/help/Result_DatMuaSach.png}"  >
+                                            </ol>
+                                            <p style="font-weight:bold">Để kiểm tra sách có được đặt thành công hay không?
+                                            <ol type="1">
+                                                <li>Vào mục thông tin cá nhân</li>
+                                                <li>kéo xuống dưới cùng, click vào  <span style="color:red">Lịch sử đặt mua sách</span> </li>
+                                                <img style="width: 100%" th:src="@{/images/help/LichSuDatMuaSach.png}"  >
+                                            </ol>
+                                            </p>
+
+                                            <p style="font-weight:bold">Để xem chi tiết và thông tin cuốn sách đã đúng yêu cầu đặt mua lúc đầu hay không?
+                                            <ol type="1">
+                                                <li>Click vào <span style="color:red">Chi tiết</span> </li>
+                                                <li>Thông tin hiện ra</br>
+                                                    <img style="width: 100%" th:src="@{/images/help/ThongTinSachBanDau.png}"  >
+                                                </li>
+                                            </ol>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <b>Cách hủy đăng kí mua sách</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="panel-body animated zoomOut">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <li class="material">Hủy đăng ký mua sách </li>
+                                                <p><b>Mục đích :</b> Sau khi đặt mua sách thành công, nhưng lại muốn hủy</p>
+                                                <p><b>Để thực hiện, cần phải qua các bước :</b> </p>
+                                                <ol type="1">
+                                                    <li>Vào thông tin cá nhân</li>
+                                                    <li>Chọn lịch sử đặt mua hàng</li>
+                                                    <img style="width: 100%" th:src="@{/images/help/LichSuDatMuaSach.png}"  >
+                                                    <li>Click vào <span style="color:red">Xóa</span></li>
+                                                    <ul>
+                                                        <li>Thông báo hiện ra :</li>
+                                                        <img style="width: 100%" th:src="@{/images/help/popup_XacNhanHuy.png}"  >
+                                                        <li>Click vào <span style="color:red">Delete</span> : Hủy cuốn sách đã đặt</li>
+                                                        <li>Click vào <span style="color:red">Close</span> : Hủy bỏ thao tác xóa sách</li>
+                                                    </ul>
+                                                </ol>
+                                                <p style="font-weight:bold">Kết quả Hủy đăng ký mua sách </p>
+                                                <img style="width: 100%" th:src="@{/images/help/KQ_HuyMuaSach.png}"  >
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <b>Tra cứu sách</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <li class="material">Chức năng tra cứu sách</li>
+                                            <p>
+                                            <p><b>- Mục đích :</b> Chức năng tra cứu sách với mục tiêu giúp độc giả học sinh giảng viên thầy cô ,có thể lựa chọn cuốn sách  nhanh nhất và đúng cuốn sách cần tìm.</p>
+                                            <p><b>- Để thực hiện được chức năng này thì cần trải qua những bước sau :</b></p>
+                                            <ol type="1">
+                                                <li>Click vào mục <span style="color:red; font-weight:bold"> TRA CỨU SÁCH</span></br>
+                                                    <img style="width: 100%" th:src="@{images/help/TraCuuSach.png}"  >
+                                                </li>
+                                                <li>Nhập cuốn sách bạn cần tìm vào ô "SEARCH" sau khi đã chọn 1 trong những mục bên dưới, sau đó click <span style="color:red; font-weight:bold">Search</span> </br>
+                                                </li>
+                                                <li>Ngoài ra bạn có thể tìm những cuốn sách thông qua tìm kiếm theo: Tiêu đề, Thể loại, Tác giả, Nhà xuất bản
+                                                    <img style="width: 100%"  th:src="@{images/help/Search_Title.png}"  >
+                                                </li>
+
+                                                <li>Sau khi thực hiện bước 2, hoặc bước 3 thì click <span style="color:red">Search</span>
+                                                    <ul>
+                                                        <li></br>
+                                                            Đây là một ví dụ cho trường hợp bạn chọn <span style="color:red">Category</span>(thể loại).</br>
+                                                            <img style="width: 100%"  th:src="@{images/help/Category.png}"  >
+                                                            </br>
+                                                            <b>Kết quả :</b></br>
+                                                            <img style="width: 100%"  th:src="@{images/help/KQ_Cate.png}" >
+                                                        </li>
+                                                        <li>Nút <span style="color:red">Reset</span> trở lại trạng thái ban đầu tiếp tục chọn lại
+                                                            (Dành những trường hợp bạn không thích cuốn sách đó hay chọn nhầm )
+                                                            </br>
+
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                                <li>Ngoài ra bạn có thể tìm kiếm nâng cao thông qua :
+                                                    <ul>
+                                                        <li>Click vào <span style="color:red">Advanced Search</span> </li>
+                                                        <li>Trang web hiện sang trang mới :</li>
+                                                        <img style="width: 100%"  th:src="@{images/help/AdvanceSearch.png}"  >
+                                                        <li>Tại đây bạn có thể tìm một trang sách bạn muốn và để tìm được cuốn sách bạn muốn bạn phải thực hiện điền đầy đủ thông tin vào các input  sau(Tên sách ,thể loại,tác giả ,nhà xuất bản ).</li>
+                                                        <li>Sau đó click vào <span style="color:red">Search</span> để tìm đúng cuốn sách cần tìm  </li>
+                                                        <li>Hoặc muốn nhập lại tìm cuốn sách khác thì click <span style="color:red">Reset</span></li>
+                                                    </ul>
+                                                </li>
+                                            </ol>
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <b>Cách Chỉnh sửa thông tin cá nhân</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="panel-body animated zoomOut">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <li class="material">Chức năng thay đổi thông tin cá nhân</li>
+                                                <p>
+                                                <P><b>- Mục đích :</b> Chức năng thay đổi thông tin cá nhân với mục đích cập nhật sự thay đổi của người dùng.</p>
+                                                <p><b>- Để thực hiện chức năng này phải trải qua các bước :</p> </b>
+                                                <ol>
+                                                    <li>Sau khi đăng nhập thành công, click vào mục thông tin cá nhân.</li>
+                                                    <li> Sau đó kéo xuống dưới, chọn biểu tượng hình cây bút</li>
+                                                    <img style="width: 100%" th:src="@{/images/help/pen.png}"  ></br>
+                                                    <span style="font-weight:bold">Kết quả</span> </br>
+                                                    Thông tin lúc đầu :</br>
+                                                    <img style="width: 100%" th:src="@{/images/help/Info_BanDau.png}"  ></br>
+                                                    Thông tin lúc sửa:</br>
+                                                    <img style="width: 100%" th:src="@{/images/help/Info_Edit.png}"  ></br>
+                                                    <li>Sau đó click <span style="color:red">Lưu thay đổi</span> thông tin được lưu lại và kết quả :</li>
+                                                    <img style="width: 100%" th:src="@{/images/help/Info_Sau.png}"  >
+                                                    <li>Nút <span style="color:red">Reset</span> là không muốn thay đổi thông tin, giữ thông tin ban đầu, hoặc nhập lại thông tin</li>
+
+                                                </ol>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom">
+                            <div class="panel-heading help" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <b>Cách đổi mật khẩu</b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body animated zoomOut">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <li class="material">Chức năng đổi mật khẩu</li>
+                                            <p>
+                                            <p><b>- Mục đích :</b></span>Chức năng đổi mật khẩu với mục đích để bảo mật thông tin người dùng hạn chế hacker tấn công .Và nên thay đổi mỗi tháng 1 lần. </p>
+                                            <p><b>- Để thực hiện chức năng đó thì phải trải qua những bước :</b></p>
+                                            <ol type="1">
+                                                <li>Đầu tiên đăng nhập vào hệ thống sau đó kích vào thông tin cá nhân :</li>
+                                                <img style="width: 100%" th:src="@{/images/help/DoiMK.png}"  >
+
+                                                <li>Sau đó ta click <span style="color:red">Đổi mật khẩu</span> người dùng sẽ được chuyển sang trang mới</li>
+                                                <img style="width: 100%" th:src="@{/images/help/popup_DoiMK.png}"  >
+
+                                                <li>Điền vào những input mật khẩu cũ ,mật khẩu mới, xác nhận mật khẩu.  </li>
+                                                <li>Sau khi điền đầy đủ thông tin xong</li>
+                                                <ul>
+                                                    <li>Click vào nút  <span style="color:red">Đổi mật khẩu</span></br></li>
+                                                    <li>Hiện ra thông báo</br> <img style="width: 100%" th:src="@{/images/help/ThanhCong_DoiMK.png}"  ></li>
+                                                </ul>
+                                            </ol>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

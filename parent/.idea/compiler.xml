@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin_service" />
+        <module name="admin_ui" />
+        <module name="data_access_layer" />
+        <module name="database" />
+        <module name="home_service" />
+        <module name="home_ui" />
+        <module name="jpa" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="admin" target="1.8" />
+      <module name="admin_service" target="1.8" />
+      <module name="admin_ui" target="1.8" />
+      <module name="data_access_layer" target="1.8" />
+      <module name="database" target="1.8" />
+      <module name="home" target="1.8" />
+      <module name="home_service" target="1.8" />
+      <module name="home_ui" target="1.8" />
+      <module name="jpa" target="1.8" />
+      <module name="parent" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

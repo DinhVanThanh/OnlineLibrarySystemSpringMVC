@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 col-lg-8 col-lg-offset-8 col-md-offset-2" >
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Thông tin người dùng</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 " align="center">
+                                    <img alt="User Pic" th:src="@{/images/person.jpg}" class="img-circle img-responsive">
+                                </div>
+
+                                <div th:object="${reader}" class=" col-md-9 col-lg-9 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                            <tr>
+                                                <td>Mã Số:</td>
+                                                <td th:text="*{readerCode}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Họ tên:</td>
+                                                <td th:text="*{name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Chức vụ:</td>
+                                                <td th:text="*{readerType.typeName}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Giới tính:</td>
+                                                <td th:text="*{sex}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày sinh</td>
+                                                <td th:text="*{#dates.format(birthDay, 'dd/MM/yyyy')}"></td>
+                                            </tr>
+
+                                            <tr>
+                                            <tr>
+                                                <td>Địa chỉ</td>
+                                                <td th:text="*{address}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td th:text="*{email}"></td>
+                                            </tr>
+                                                <td>Số điện thoại</td>
+                                                <td th:text="*{phoneNumber}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày tạo:</td>
+                                                <td th:text="*{#dates.format(dateCreation, 'dd/MM/yyyy')}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày chỉnh sửa:</td>
+                                                <td th:text="*{#dates.format(dateModified, 'dd/MM/yyyy')}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+                                    <a th:href="@{/home/BookOrderHistory}" class="btn btn-primary">Lịch sử đặt mua sách</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a th:href="@{/home/EditProfile(readerid=${readerid})}" data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"> Chỉnh sửa thông tin  </a>
+                            <span class="pull-right">
+                            <a th:href="@{/home/ChangePasswordForm}" class="btn btn-primary">Đổi mật khẩu</a>
+                            <a th:href="@{/home/BookReservationHistory}" class="btn btn-primary">Lịch sử mượn sách</a>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>

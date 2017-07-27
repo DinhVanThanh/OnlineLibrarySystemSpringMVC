@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../admin_service" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../admin_ui" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../data_access_layer" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../jpa" vcs="svn" />
+  </component>
+</project>

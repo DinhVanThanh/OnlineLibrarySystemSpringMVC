@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+        <!-- PNotify -->
+
+    </head>
+    <body>
+        <div th:fragment="content">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Tác giả</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a th:href="@{/admin/AddAuthor}"><button type="button" class="btn btn-primary">Thêm tác giả</button></a>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input id="search" name="search" type="text" class="form-control"   placeholder="Tìm kiếm..." />
+                                        <div class="input-group-btn">
+                                            <!-- Button and dropdown menu -->
+                                            <button type="button" class="btn btn-primary">Tìm kiếm</button>
+                                            <!--<div class="btn-group" role="group">-->
+                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Lọc  <span class="caret"></span>
+                                            </button>
+                                            <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li id="AuthorID" class="list-group-item"><input type="radio" class="flat" checked="checked" name="iCheck"/> Mã tác giả </li>
+                                                <li id="AuthorName" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tên tác giả </li>
+
+                                            </ul>
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th>
+                                                <input type="checkbox" id="check-all" class="flat"/>
+                                            </th>
+                                            <th class="column-title">Mã tác giả</th>
+                                            <th class="column-title">Tên tác giả</th>
+                                            <th class="column-title">Chỉnh sửa</th>
+                                            <th class="column-title">Xóa</th>
+
+
+                                            <th class="bulk-actions" colspan="7">
+                                                <a class="antoo" style="color:#fff; font-weight:500;">Chọn tất cả ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="item:${list}" class="even pointer">
+                                        <td class="a-center ">
+                                            <input type="checkbox" class="flat" name="table_records"/>
+                                        </td>
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.authorName}"></td>
+                                        <td class=" "><a th:href="@{/admin/EditAuthor/{id}(id=${item.id})}"><button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button> </a> </td>
+                                        <td class=" "><a th:href="@{/admin/DeleteAuthor/{id}(id=${item.id})}"><button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete-example-modal-sm"><i class="fa fa-trash"></i></button> </a> </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                                <ul style="margin-left: 75%" class="pagination">
+                                    <li th:if="${pagenumber > 1}">
+                                        <a th:href="@{/admin/Author(pagenum=${pagenumber - 1})}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'">
+                                        <a th:text="${pag}" th:href="@{/admin/Author(pagenum=${pag})}"></a>
+                                    </li>
+                                    <li th:if="!${pagenumber >= totalpage}">
+                                        <a th:href="@{/admin/Author(pagenum=${pagenumber + 1})}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modals-->
+
+            <div class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Xóa</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bạn có chắc chắn xóa ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <!--Modals-->
+        </div>
+    </body>
+</html>

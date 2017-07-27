@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../admin_service/admin_service.iml" filepath="$PROJECT_DIR$/../admin_service/admin_service.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/../admin_ui/admin_ui.iml" filepath="$PROJECT_DIR$/../admin_ui/admin_ui.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/../data_access_layer/data_access_layer.iml" filepath="$PROJECT_DIR$/../data_access_layer/data_access_layer.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/../database/database.iml" filepath="$PROJECT_DIR$/../database/database.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/../home_service/home_service.iml" filepath="$PROJECT_DIR$/../home_service/home_service.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/../home_ui/home_ui.iml" filepath="$PROJECT_DIR$/../home_ui/home_ui.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/../jpa/jpa.iml" filepath="$PROJECT_DIR$/../jpa/jpa.iml" group="fpt_gst" />
+      <module fileurl="file://$PROJECT_DIR$/parent.iml" filepath="$PROJECT_DIR$/parent.iml" group="fpt_gst" />
+    </modules>
+  </component>
+</project>

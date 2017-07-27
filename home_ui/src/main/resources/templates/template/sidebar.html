@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="sidebar">
+            <div >
+                <div>
+                    <a href="#" class="list-group-item active">Thể loại
+                    </a>
+                    <ul class="list-group" >
+
+                       <a  class="list-group-item" style="font-family: Arial; font-size: 14px" th:each="item : ${@categoryService.findAll()}" th:href="@{/home/index/category(categoryid=${item.getId()})}"><li  style="list-style: none"  th:text="${{item.getCategoryName()}}">
+                            <span  class="label label-primary pull-right">234</span>
+                        </li></a>
+                    </ul>
+                </div>
+                <div>
+                    <a href="#" class="list-group-item active">Nhà xuất bản
+                    </a>
+                    <ul class="list-group">
+                        <a class="list-group-item" th:each="item : ${@publisherService.findAll()}" th:href="@{/home/index/publisher(publisherid=${item.getId()})}"><li style="list-style: none"  th:text="${{item.getPublisherName()}}">
+                            <span class="label label-warning pull-right">456</span>
+                        </li></a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

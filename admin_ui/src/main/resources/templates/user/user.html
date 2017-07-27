@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+        <!-- PNotify -->
+
+    </head>
+    <body>
+        <div th:fragment="content">
+            <!--advanced search box-->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Tìm kiếm nâng cao</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--advanced search box-->
+            <!--Users Table-->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Độc giả</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a th:href="@{/admin/adduser}"><button type="button" class="btn btn-primary">Thêm độc giả mới</button></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a th:href="@{/admin/sendMail}"><button type="button" class="btn btn-primary">Gửi mail nhắc nhở</button></a>
+                                </div>
+                                 <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input id="search" name="search" type="text" class="form-control"   placeholder="Tìm kiếm..." />
+                                        <div class="input-group-btn">
+                                            <!-- Button and dropdown menu -->
+                                                <button type="button" class="btn btn-primary">Tìm kiếm</button>
+                                                <!--<div class="btn-group" role="group">-->
+                                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                   Lọc  <span class="caret"></span>
+                                                </button>
+                                                <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li id="code" class="list-group-item"><input type="radio" class="flat" checked="checked" name="iCheck"/> Mã độc giả </li>
+                                                    <li id="code" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Mã độc giả</li>
+                                                    <li id="name" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tên độc giả  </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/>  Kiểu   </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Giới tính </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày sinh </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/>Số điện thoại </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Địa chỉ </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Email </li>
+                                                    <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Trạng thái </li>
+
+                                                </ul>
+                                                <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th>
+                                                <input type="checkbox" id="check-all" class="flat"/>
+                                            </th>
+                                            <th class="column-title">Mã độc giả</th>
+                                            <th class="column-title">Họ tên</th>
+                                            <th class="column-title">Kiểu</th>
+                                            <th class="column-title">Kích hoạt/Chưa kích hoạt</th>
+                                            <th class="column-title">Chi tiết </th>
+                                            <th class="column-title">Chỉnh sửa</th>
+                                            <th class="column-title">Xóa</th>
+
+
+                                            <th class="bulk-actions" colspan="7">
+                                                <a class="antoo" style="color:#fff; font-weight:500;">Chọn tất cả ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr th:each="item:${list}" th:id="${'user'+item.id}" class="even pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records"/>
+                                            </td>
+                                            <td th:text="${item.id}"></td>
+                                            <td th:text="${item.name}"></td>
+                                            <td th:text="${item.readerType.typeName}"></td>
+                                            <td class=" "><input type="checkbox" class="js-switch" checked="checked" /></td>
+                                            <td class=" "><button type="button" class="btn btn-info btndetail" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                            <td class=" "><a th:href="@{/admin/edituser(readerid=${item.id})}"><button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button> </a> </td>
+                                            <td class=" "><button type="button" class="btn btn-danger deleteuser"   data-target=".delete-example-modal-sm"><i class="fa fa-trash"></i></button></td>
+                                            <input class="readerid" type="hidden" th:value="${item.id}" />
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ul style="margin-left: 75%" class="pagination">
+                                    <li th:if="${pagenumber > 1}">
+                                        <a th:href="@{/admin/user(pagenum=${pagenumber - 1})}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'">
+                                        <a th:text="${pag}" th:href="@{/admin/user(pagenum=${pag})}"></a>
+                                    </li>
+                                    <li th:if="!${pagenumber >= totalpage}">
+                                        <a th:href="@{/admin/user(pagenum=${pagenumber + 1})}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Users Table-->
+            <!--Modals-->
+            <div class="modal fade detail-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Thông tin độc giả</h4>
+                        </div>
+                        <div class="modal-body" id="modelcontent">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="modalalert" class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-success">Xóa người dùng thành công</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="modeldeleteuser" class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Xóa</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you want to delete ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button id="delete" type="button" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <!--Modals-->
+            <!--script-->
+            <!-- jQuery -->
+            <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                $(document).ready(function () {
+
+//                    delete user by id using ajax
+                    $('.deleteuser').click(function(){
+                        value = $(this).parent().parent().children('.readerid').val();
+                        $('#modeldeleteuser').modal('show');
+                            $('#delete').click(function () {
+                                $.ajax({
+                                    method: "GET",
+                                    url: "/admin/deleteuser",
+                                    data: {userid: parseInt(value)},
+                                    dataType: "text",
+                                    success: function (string) {
+                                        if(string == 1)
+                                        {
+                                            $('#user'+value).remove();
+                                            $('#modeldeleteuser').modal('hide');
+                                            $('#modalalert').modal('show');
+                                        }
+                                    }
+                                });
+                            });
+                    });
+                    $('#male').click(function () {
+                        $(this).removeClass('btn-default');
+                        $(this).addClass('btn-primary');
+                        $('#female').removeClass('btn-primary');
+                        $('#female').addClass('btn-default');
+                    });
+                    $('#female').click(function () {
+                        $(this).removeClass('btn-default');
+                        $(this).addClass('btn-primary');
+                        $('#male').removeClass('btn-primary');
+                        $('#male').addClass('btn-default');
+                    });
+
+                    $('.btndetail').click(function () {
+                        value = $(this).parent().parent().children('.readerid').val();
+                        $.ajax({
+                            method: "GET",
+                            url: "/admin/userdetail",
+                            data:{readerid:parseInt(value)},
+                            dataType: "text",
+                            success:function (string) {
+                                html = '';
+                                var json = JSON.parse(string);
+//                                var mydate = new Date(json.birthDay.toString());
+                                html += '<form class="form-horizontal">'+
+                                    '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Họ tên</label>'+
+                                '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.name+'</p>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Mã độc giả</label>'+
+                                '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.readerCode+'</p>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Giới tính</label>'+
+                                '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.sex+'</p>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Ngày sinh</label>'+
+                                '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.birthDay+'</p>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Số điện thoại</label>'+
+                                '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.phoneNumber+'</p>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Địa chỉ</label>'+
+                                '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.address+'</p>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div class="form-group">'+
+                                    '<label class="col-sm-2 control-label">Email</label>'+
+                                    '<div class="col-sm-10">'+
+                                    '<p class="form-control-static">'+json.email+'</p>'+
+                                '</div>'+
+                                '</div>'+
+                                '</form>' ;
+
+                                $('#modelcontent').html(html);
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>

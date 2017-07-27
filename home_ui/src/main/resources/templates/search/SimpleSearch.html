@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 ">
+                <form class="form-horizontal" role="form" th:action="@{/home/simplesearch}" enctype="multipart/form-data" th:method="GET">
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>Tìm kiếm sách</legend>
+
+                        <!--tên sách-->
+                        <div class="form-group">
+                            <!--<label class="col-sm-4 control-label" for="tensach">Tên sách</label>-->
+                            <div class="col-sm-12 col-md-12">
+                                <input required="required" name="search" id="search" type="text" placeholder="search..." class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Thể loại-->
+                        <div class="form-group">
+                            <!--<label class="col-sm-4 control-label" for="tensach"> </label>-->
+                            <div id="theloai" class="col-sm-12 col-md-12">
+                                    <!--<input name="category" id="theloai" type="text" placeholder="Thể loại" class="form-control">-->
+                                <div class="btn-group btn-group-vertical" data-toggle="buttons">
+                                    <label class="btn">
+                                        <input type="radio" value="title" name='type' checked="checked"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span>Tiêu đề</span>
+                                    </label>
+                                    <label class="btn">
+                                        <input type="radio" value="category" name='type'><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Thể loại</span>
+                                    </label>
+                                    <label class="btn">
+                                        <input type="radio" value="author" name='type'><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Tác giả</span>
+                                    </label>
+                                    <label class="btn">
+                                        <input type="radio" value="publisher" name='type'><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Nhà xuất bản</span>
+                                    </label>
+                                    <label class="btn">
+                                        <input type="radio" value="keyword" name='type'><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Từ khóa</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="pull-right">
+                                    <button type="reset" class="btn btn-default">Mặc định</button>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div><!-- /.col-lg-12 -->
+            <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <a th:href="@{/home/advancedsearchbook}" ><button class="col-md-12 btn btn-primary">Tìm kiếm nâng cao</button></a>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+
+
+    </head>
+    <body>
+        <div th:fragment="content">
+
+            <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Yêu cầu mua sách</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="search" name="search" type="text" class="form-control"   placeholder="Tìm kiếm..." />
+                                    <div class="input-group-btn">
+                                        <!-- Button and dropdown menu -->
+                                        <button type="button" class="btn btn-primary">Tìm kiếm</button>
+                                        <!--<div class="btn-group" role="group">-->
+                                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Lọc  <span class="caret"></span>
+                                        </button>
+                                        <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li id="code" class="list-group-item"><input type="radio" class="flat" checked="checked" name="iCheck"/> Mã mua </li>
+                                            <li id="code" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tên độc giả </li>
+                                            <li id="name" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Book Code  </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/>  Tên sách  </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày mua </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày chỉnh sửa </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày duyệt </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Trạng thái </li>
+
+                                        </ul>
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th>
+                                            <input type="checkbox" id="check-all" class="flat"/>
+                                        </th>
+                                        <th class="column-title">Mã mượn sách</th>
+                                        <th class="column-title">Tên độc giả</th>
+                                        <th class="column-title">Ngày đặt mua</th>
+                                        <th class="column-title">Ngày duyệt</th>
+                                        <th class="column-title">Đồng ý/Từ chối</th>
+                                        <th class="column-title">Chi tiết </th>
+                                        <th class="column-title">Xóa</th>
+
+
+                                        <th class="bulk-actions" colspan="7">
+                                            <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="item:${list}" class="even pointer">
+                                        <td class="a-center ">
+                                            <input type="checkbox" class="flat" name="table_records"/>
+                                        </td>
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.reader.name}"></td>
+                                        <td th:text="${#dates.format(item.orderDate, 'dd/MM/yyyy')}"></td>
+                                        <td class="approvedate" th:text="${item.dateOfApproval}!=null?${#dates.format(item.dateOfApproval, 'dd/MM/yyyy')}:'chưa duyệt'"></td>
+                                        <td class=" "><input type="checkbox" th:id="${'approveuser'+item.id}" th:checked="${item.isApproval()}==true?'checked'" /></td>
+                                        <td class=" "><button type="button" class="btn btn-info bookorderdetail" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                        <td class=" "><button  type="button" class="btn btn-danger deleteorderbookbtn"  data-target=".delete-example-modal-lg"><i class="fa fa-trash"></i></button></td>
+                                        <input type="hidden" th:value="${item.id}" class="orderid" />
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ul style="margin-left: 75%" class="pagination">
+                                <li th:if="${pagenumber > 1}">
+                                    <a th:href="@{/admin/purchasebookrequest(pagenum=${pagenumber - 1})}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'">
+                                    <a th:text="${pag}" th:href="@{/admin/purchasebookrequest(pagenum=${pag})}"></a>
+                                </li>
+                                <li th:if="!${pagenumber >= totalpage}">
+                                    <a th:href="@{/admin/purchasebookrequest(pagenum=${pagenumber + 1})}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!--Modals-->
+            <div id="modaldetail" class="modal fade detail-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Thông tin sách</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel-group bookdetail" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="modalalert" class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div id="alertcontent" class="alert alert-success"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="modeldeleteorderbook" class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Bạn có chắc chắn muốn xóa?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button id="delete" type="button" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+
+
+            <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+            <script th:src="@{/js/Cordination.js}"></script>
+            <script th:src="@{/js/notify.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                var approveelement;
+                var checkbox;
+                $(document).ready(function () {
+
+                   $(':checkbox').click(function () {
+                       value = $(this).parent().parent().children('.orderid').val();
+                       approveelement = $(this).parent().parent().children('.approvedate');
+                       checkbox = $(this);
+                       if($(this).prop('checked'))
+                       {
+                           $.ajax({
+                               method: "GET",
+                               dataType:"text",
+                               url: "/admin/approvebookorder",
+                               data: { bookorderid: value },
+                               success:function (message) {
+
+                                   var currentdate = new Date();
+                                   var datetime = currentdate.getDate() + "/"
+                                       + (currentdate.getMonth()+1)  + "/"
+                                       + currentdate.getFullYear();
+                                   approveelement.html(datetime);
+                                   $('#alertcontent').text('Đã duyệt yêu cầu đặt mua sách có mã là '+message+' thành công');
+                                   $('#modalalert').modal('show');
+                               }
+                           });
+                       }
+                       else
+                       {
+                           $.ajax({
+                               method: "GET",
+                               dataType:"text",
+                               url: "/admin/cancelbookorder",
+                               data: { bookorderid: value },
+                               success:function (message) {
+                                   if(message != "-1")
+                                   {
+                                       approveelement.html('chưa duyệt');
+                                       $('#alertcontent').text('Đã hủy yêu cầu đặt mua sách có mã là '+message+' thành công');
+                                       $('#modalalert').modal('show');
+                                   }
+                                   else
+                                   {
+                                       $('#alertcontent').text('Hóa đơn đã tồn tại');
+                                       $('#modalalert').modal('show');
+                                       checkbox.attr('checked', 'checked');
+                                   }
+                               }
+                           });
+                       }
+                   });
+                   var html;
+//                   book order detail
+                   $('.bookorderdetail').click(function () {
+                       value = $(this).parent().parent().children('.orderid').val();
+
+                       $.ajax({
+                           method: "GET",
+                           dataType:"text",
+                           url: "/admin/bookorderdetail",
+                           data: { bookorderid: value },
+                           success:function (message) {
+
+                                html = '';
+                               var json = JSON.parse(message);
+                                $.each(json, function (key, values) {
+                                    html += '<div class="panel panel-custom">'+
+                                        '<div class="panel-heading" role="tab" id="headingOne">'+
+                                        '<h4 class="panel-title">'+
+                                        '<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+
+                                        '<b>Tên sách :</b>'+values.title+
+                                        '<br/>'+
+                                        '<b>Số lượng :</b>'+values.quantity+
+                                    '</a>'+
+                                    '</h4>'+
+                                    '</div>'+
+                                    '<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+                                        '<div class="panel-body animated zoomOut">'+
+                                            '<form class="form-horizontal">'+
+                                                '<div class="form-group">'+
+                                                    '<label class="col-sm-2 control-label">Tên sách</label>'+
+                                                    '<div class="col-sm-10">'+
+                                                        '<p class="form-control-static">'+values.title+'</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group">'+
+                                                    '<label class="col-sm-2 control-label">Thể loại</label>'+
+                                                    '<div class="col-sm-10">'+
+                                                        '<p class="form-control-static">'+values.category+'</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group">'+
+                                                    '<label class="col-sm-2 control-label">Tác giả</label>'+
+                                                    '<div class="col-sm-10">'+
+                                                        '<p class="form-control-static">'+values.author+'</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group">'+
+                                                    '<label class="col-sm-2 control-label">Nhà xuất bản</label>'+
+                                                    '<div class="col-sm-10">'+
+                                                        '<p class="form-control-static">'+values.publisher+'</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</form>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '</div>';
+                                });
+                                $('.bookdetail').html(html);
+                                $('#modaldetail').modal('show');
+                           }
+                       });
+                   });
+
+//                   delete book order
+                    $('.deleteorderbookbtn').click(function () {
+                        value = $(this).parent().parent().children('.orderid').val();
+                        $('#modeldeleteorderbook').modal('show');
+
+                    });
+                    $('#delete').click(function () {
+
+                        $.ajax({
+                            method: "GET",
+                            dataType:"text",
+                            url: "/admin/deletebookorder",
+                            data: { bookorderid: value },
+                            success:function (message) {
+                                if(message += "-1")
+                                {
+                                    $('#modeldeleteorderbook').modal('hide');
+                                    $(this).parent().parent().remove();
+                                    $('#alertcontent').text('Đã xóa yêu cầu đặt mua sách có mã là '+message+' thành công');
+                                    $('#modalalert').modal('show');
+                                }
+                                else
+                                {
+                                    $('#modeldeleteorderbook').modal('hide');
+                                    $('#alertcontent').removeClass('alert-success');
+                                    $('#alertcontent').addClass('alert-danger');
+                                    $('#alertcontent').text('Hóa đơn đã tồn tại');
+                                    $('#modalalert').modal('show');
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>

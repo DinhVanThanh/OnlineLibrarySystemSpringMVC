@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page" >
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <h2 style="text-align: center;">Lịch sử đặt mua sách</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Mã đặt mua sách</th>
+                                <th>Ngày đặt mua</th>
+                                <th>Tình trạng</th>
+                                <th>Chi tiết</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${bookorders}">
+                                <td  th:text="${item.getId()}"></td>
+                                <td th:text="${#dates.format(item.getOrderDate(), 'dd-MM-yyyy')}"></td>
+                                <td th:text="${item.isApproval()?'đã duyệt':'chưa duyệt'}"></td>
+                                <td><button class="btn btn-info" ><i class="fa fa-eye"></i> </button></td>
+                                <td><button class="btn btn-danger btndelete" ><i class="fa fa-trash"></i></button></td>
+                                <input type="hidden" class="bookorderid" th:value="${item.getId()}" />
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="pagination alg-right-pad">
+                    <li th:if="${pagenumber > 1}"><a th:href="@{${previous}}">&laquo;</a></li>
+                    <li th:if="${pagenumber > 1}" th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'"><a  th:text="${pag}" th:href="@{${link + 'pagenum=' + pag}}"></a></li>
+                    <li th:if="${pagenumber < totalpage}"><a th:href="@{${next}}">&raquo;</a></li>
+                </ul>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-danger" role="alert">Bạn có chắc chắn muốn xóa?</div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="removeorderbook" type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deletesuccessfulalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div id="alertcontent" class="alert alert-success" role="alert"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Chi tiết sách</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <!--<div   class="panel panel-custom">-->
+                                    <!--<div class="panel-heading" role="tab" id="headingOne">-->
+                                        <!--<h4 class="panel-title">-->
+                                            <!--<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">-->
+
+                                                <!--<b>Mã sách :</b><p id="masach" ></p>-->
+                                                <!--<br/>-->
+                                                <!--<b>Tiêu đề :</b><p id="tieude" ></p>-->
+                                                <!--<br/>-->
+                                                <!--<b>Số lượng :</b><p id="soluong" ></p>-->
+
+                                            <!--</a>-->
+                                        <!--</h4>-->
+                                    <!--</div>-->
+                                    <!--<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">-->
+                                        <!--<div class="panel-body animated zoomOut">-->
+                                            <!--<form class="form-horizontal">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 control-label">Thể loại</label>-->
+                                                    <!--<div class="col-sm-8">-->
+                                                        <!--<p class="form-control-static" id="theloai"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 control-label">Tác giả</label>-->
+                                                    <!--<div class="col-sm-8">-->
+                                                        <!--<p class="form-control-static" id="tacgia" ></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 control-label">Nhà xuất bản</label>-->
+                                                    <!--<div class="col-sm-8">-->
+                                                        <!--<p class="form-control-static" id="nxb"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</form>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <!--script-->
+            <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                var html;
+                var deleterow;
+                $(document).ready(function () {
+                    $('.btndelete').click(function () {
+                        value = $(this).parent().parent().children('.bookorderid').val();
+                       $('#deleteModal').modal('show');
+                       deleterow = $(this).parent().parent();
+
+                    });
+
+                    $('#removeorderbook').click(function () {
+                        $.ajax({
+                            method: "GET",
+                            url: "/home/removeorderbook",
+                            data: {bookorderid: parseInt(value)},
+                            dataType: "text",
+                            success: function (string) {
+                                $('#deleteModal').modal('hide');
+                                $('#alertcontent').text(string);
+                                deleterow.remove();
+                                $('#deletesuccessfulalert').modal('show');
+
+                            }
+                        });
+                    });
+
+                    $('.btn-info').click(function () {
+                       value = $(this).parent().parent().children('.bookorderid').val();
+//                       alert(value);
+                        $.ajax({
+                            method: "GET",
+                            url: "/home/bookorderdetail",
+                            data:{bookorderid:parseInt(value)},
+                            dataType: "text",
+                            success:function (string) {
+                                html = '';
+                                var json = JSON.parse(string);
+                                $.each(json, function (key, data) {
+
+                                     html += '<div   class="panel panel-custom">'+
+                                                 '<div class="panel-heading" role="tab" id="headingOne">'+
+                                                     '<h4 class="panel-title">'+
+                                                        '<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne'+data.id+'" aria-expanded="true" aria-controls="collapseOne">'+
+                                                            '<b>Mã sách :</b>'+data.id+
+                                                                '<br/>'+
+                                                            '<b>Tiêu đề :</b>'+data.title+
+                                                                '<br/>'+
+                                                            '<b>Số lượng :</b>'+data.quantity+
+                                                        '</a>'+
+                                                     '</h4>'+
+                                                '</div>'+
+                                                '<div id="collapseOne'+data.id+'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+                                                    '<div class="panel-body animated zoomOut">'+
+                                                        '<form class="form-horizontal">'+
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Thể loại</label>'+
+                                                                '<div class="col-sm-8">'+
+                                                                    '<p class="form-control-static" id="theloai">'+data.category+'</p>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Tác giả</label>'+
+                                                                '<div class="col-sm-8">'+
+                                                                    '<p class="form-control-static" id="tacgia" >'+data.author+'</p>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Nhà xuất bản</label>'+
+                                                                '<div class="col-sm-8">'+
+                                                                    '<p class="form-control-static" id="nxb">'+data.publisher+'</p>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</form>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>';
+                                    $('div#accordion').html(html);
+                                    $('#detailModal').modal('show');
+                                });
+                            }
+                        });
+
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>

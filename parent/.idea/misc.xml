@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../admin_service" />
+    <file type="web" url="file://$PROJECT_DIR$/../admin_ui" />
+    <file type="web" url="file://$PROJECT_DIR$/../database" />
+    <file type="web" url="file://$PROJECT_DIR$/../home_service" />
+    <file type="web" url="file://$PROJECT_DIR$/../home_ui" />
+    <file type="web" url="file://$PROJECT_DIR$/../jpa" />
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../database/pom.xml" />
+        <option value="$PROJECT_DIR$/../home_service/pom.xml" />
+        <option value="$PROJECT_DIR$/../admin_service/pom.xml" />
+        <option value="$PROJECT_DIR$/../home_ui/pom.xml" />
+        <option value="$PROJECT_DIR$/../admin_ui/pom.xml" />
+        <option value="$PROJECT_DIR$/../jpa/pom.xml" />
+        <option value="$PROJECT_DIR$/../data_access_layer/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>

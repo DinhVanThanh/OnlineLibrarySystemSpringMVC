@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 ">
+                    <form class="form-horizontal" role="form" th:action="@{/home/advancedsearch}" enctype="multipart/form-data" th:method="GET">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Tìm kiếm sách nâng cao</legend>
+
+                            <!--tên sách-->
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="tensach">Tên sách</label>
+                                <div class="col-sm-8">
+                                    <input  name="booktitle" id="tensach" type="text" placeholder="Tên sách" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Thể loại-->
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="theloai">Thể loại</label>
+                                <div id="theloai" class="col-sm-8">
+                                    <div class="dropdown">
+                                        <input name="category" id="theloai" type="text" placeholder="Thể loại" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tác giả-->
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="tacgia">Tác giả</label>
+                                <div id="tacgia" class="col-sm-8">
+                                    <div class="dropdown  ">
+                                        <input name="author" id="tacgia" type="text" placeholder="Tác giả" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- nhà xuất bản-->
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="nhaxuatban">Nhà xuất bản</label>
+                                <div id="nhaxuatban" class="col-sm-8">
+                                    <div class="dropdown ">
+                                        <input name="publisher" id="nxb" type="text" placeholder="Nhà xuất bản" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="pull-right">
+                                        <button type="reset" class="btn btn-default">Mặc định</button>
+                                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div><!-- /.col-lg-12 -->
+                <div class="col-md-2"></div>
+        </div>
+    </body>
+</html>

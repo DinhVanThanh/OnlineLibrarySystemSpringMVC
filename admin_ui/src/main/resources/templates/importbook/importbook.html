@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+
+            <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Sách</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a th:href="@{/admin/addbook}"><button type="button" class="btn btn-primary">Thêm sách mới</button></a>
+                            </div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="search" name="search" type="text" class="form-control"   placeholder="Tìm kiếm..." />
+                                    <div class="input-group-btn">
+                                        <!-- Button and dropdown menu -->
+                                        <button type="button" class="btn btn-primary">Tìm kiếm</button>
+                                        <!--<div class="btn-group" role="group">-->
+                                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Lọc  <span class="caret"></span>
+                                        </button>
+                                        <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li id="code" class="list-group-item"><input type="radio" class="flat" checked="checked" name="iCheck"/> Mã sạch </li>
+                                            <li id="name" class="list-group-item"><input type="radio" class="flat" name="iCheck"/> Tên sách </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Thể loại </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tác giả </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Nhà xuất bản </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Giá </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Số lượng </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Phiên bản </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Năm xuất bản </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày thêm </li>
+                                            <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày chỉnh sửa </li>
+                                        </ul>
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th>
+                                            <input type="checkbox" id="check-all" class="flat"/>
+                                        </th>
+                                        <th class="column-title">Mã sách</th>
+                                        <th class="column-title">Tên sách</th>
+                                        <th class="column-title">Số lượng</th>
+                                        <th class="column-title">Hình</th>
+                                        <th class="column-title">Chi tiết </th>
+                                        <th class="column-title">Chỉnh sửa</th>
+                                        <th class="column-title">Xóa</th>
+
+
+                                        <th class="bulk-actions" colspan="7">
+                                            <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="item:${list}" class="even pointer">
+                                        <td class="a-center ">
+                                            <input type="checkbox" class="flat" name="table_records"/>
+                                        </td>
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.title}"></td>
+                                        <td th:text="${item.quantity}"></td>
+                                        <td class=" "><img th:src="${item.image}" height="150"  width="100"/></td>
+                                        <td class=" "><button type="button" class="btn btn-info" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                        <td class=" "><a th:href="@{/admin/editbook/{id}(id=${item.id})}"><button type="button" class="btn btn-danger"><i class="fa fa-edit"></i></button> </a> </td>
+                                        <td class=" "><a href="#"><button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete-example-modal-lg"><i class="fa fa-trash"></i></button> </a> </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <ul style="margin-left: 75%" class="pagination">
+                                <li th:if="${pagenumber > 1}">
+                                    <a th:href="@{/admin/importbook(pagenum=${pagenumber - 1})}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'">
+                                    <a th:text="${pag}" th:href="@{/admin/importbook(pagenum=${pag})}"></a>
+                                </li>
+                                <li th:if="!${pagenumber >= totalpage}">
+                                    <a th:href="@{/admin/importbook(pagenum=${pagenumber + 1})}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!--Modals-->
+            <div class="modal fade detail-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Book's information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Title</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Giải tích 1</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Category</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Toán</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Author</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Phan Đình Lân</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Publisher</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">NXB Thanh Niên</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Giá</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">50.000 VNĐ</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Edition</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">2<sup>sd</sup></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Publish Year</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">2010</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Import Date</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">10/12/2011</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Modified Date</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">10/12/2011</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Image</label>
+                                    <div class="col-sm-10">
+                                        <img th:src="@{/static/images/download.jpg}" height="350"  width="250"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="deletemodal" class="modal fade delete-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div id="deletedialog" class="modal-dialog modal-lg">
+                    <div id="deletecontent" class="modal-content">
+                        <div id="deletevody" class="modal-body">
+                            <h2>Do you want to delete!</h2>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">-->
+                <!--<div class="modal-dialog modal-sm" role="alertdialog">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                            <!--<h4 class="modal-title">Delete</h4>-->
+                        <!--</div>-->
+                        <!--<div class="modal-body">-->
+                            <!--<p>Do you want to delete ?</p>-->
+                        <!--</div>-->
+                        <!--<div class="modal-footer">-->
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                            <!--<button type="button" class="btn btn-danger">Delete</button>-->
+                        <!--</div>-->
+                    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--Modals-->
+        </div>
+    </body>
+</html>

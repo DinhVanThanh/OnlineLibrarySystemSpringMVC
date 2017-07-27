@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  th:include="template/layout :: page">
+    <head>
+
+        <title>Library</title>
+
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div>
+                <div>
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Electronics</li>
+                    </ol>
+                </div>
+                <!-- /.div -->
+                <div class="row">
+
+                    <div class="btn-group alg-right-pad">
+                        <button type="button" class="btn btn-default"><strong th:text="${totalrecord}"></strong> books</button>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div th:each="item : ${books}" class="col-md-4 text-center ">
+                        <div class="thumbnail product-box">
+                            <img style="width: 100%; height: 300px;" th:src="@{${item.getImage()} + ''}" src="assets/img/dummyimg.png" alt="" />
+                            <div class="caption">
+                                <h3><a href="#" th:text="${item.getTitle()}"></a></h3>
+                                <p>Price : <strong th:text="${item.getPrice()}"></strong></p>
+                                <p><a   href="#"  class="btn btn-success reservebook" role="button" data-toggle="modal" data-target="#reserve">Mượn sách</a> <a th:href="@{/home/BookDetail(bookid=${item.getId()})}" class="btn btn-primary" role="button" >Chi tiết</a></p>
+                                <input type="hidden" class="bookid"  th:value="${item.getId()}" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <ul class="pagination alg-right-pad">
+                        <li th:if="${pagenumber > 1}"><a th:href="@{/home/index/category(categoryid=${id},pagenum=${pagenumber - 1})}">&laquo;</a></li>
+                        <li th:if="${pagenumber > 1}" th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'"><a  th:text="${pag}" th:href="@{/home/index/category(categoryid=${id},pagenum=${pag})}"></a></li>
+                        <li th:if="${pagenumber < totalpage}"><a th:href="@{/home/index/category(categoryid=${id},pagenum=${pagenumber + 1})}">&raquo;</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <!--modal-->
+            <div class="modal fade" id="reserve" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-info" role="alert">Bạn có chắc chắn muốn mượn sách</div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button id="reservebook" type="button" class="btn btn-primary">Mượn sách</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="successfulbookreservationalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-success successfulalert" role="alert"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--script-->
+            <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                $(document).ready(function () {
+                    $('a.reservebook').click(function () {
+                        value = $(this).parent().parent().children('.bookid').val();
+                    });
+                    $('#reservebook').click(function() {
+
+                        $.ajax({
+                            method: "GET",
+                            url: "/home/Reserve",
+                            data:{bookid:parseInt(value)},
+                            dataType: "text",
+                            success:function (string) {
+
+                                $('#reserve').modal('hide');
+                                $('div.successfulalert').text( string);
+                                $('#successfulbookreservationalert').modal('show');
+
+                            }
+                        });
+
+                    });
+
+                });
+            </script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Books Reservation</title>
+    </head>
+    <body>
+
+        <div th:fragment="content">
+            <div class="row" th:if="${books}==null">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="alert alert-danger" role="alert">Chưa có sách nào được mượn</div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row" th:if="${books}!=null">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sách</th>
+
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${books}">
+                                <td class="col-sm-8 col-md-8">
+                                    <div class="media">
+                                        <a class="thumbnail pull-left" href="#">
+                                            <img   th:src="${item.getImage()}" style="width: 150px; height: 250px;">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a href="#" th:text="${item.getTitle()}"> </a></h4>
+                                            <h5 class="media-heading"><a href="#" th:text="${item.getCategory().getCategoryName()}"></a></h5>
+                                            <span>Tình trạng: </span><span class="text-success"><strong th:text="${item.getStatus()}"></strong></span>
+                                            <h4>Nhà xuất bản</h4>
+                                            <p class="media-heading" th:text="${item.getPublisher().getPublisherName()}"></p>
+                                            <h4>Tác giả</h4>
+                                            <p class="media-heading" th:each="authors : ${item.getAuthor()}" th:text="${authors.getAuthorName()}" ></p>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                                <td class="col-sm-1 col-md-1">
+                                    <button type="button" class="btn btn-danger removebook">
+                                        <span class="glyphicon glyphicon-remove"></span> Xóa
+                                    </button>
+                                </td>
+                                <input class="bookid" type="hidden" th:value="${item.getId()}" />
+                            </tr>
+
+                            <tr>
+
+                                <td><h5>Ngày mượn</h5></td>
+                                <td class="text-right"><h5><strong th:text="${#dates.format(ReservationDate, 'dd/MM/yyyy')}"></strong></h5></td>
+                            </tr>
+                            <tr>
+
+                                <td><h5>Ngày hết hạn</h5></td>
+                                <td class="text-right"><h5><strong th:text="${#dates.format(ReturnDate, 'dd/MM/yyyy')}"></strong></h5></td>
+                            </tr>
+                            <tr>
+                                <td>   </td>
+
+                                <td>
+                                    <a th:href="@{/home/SaveBookReservation}">
+                                        <button type="button" class="btn btn-success">
+                                            Reserve books <span class="glyphicon glyphicon-play"></span>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--modal-->
+            <div class="modal fade" id="removereservedbook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-danger" role="alert">Bạn có chắc chắn muốn xóa sách</div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button id="reservebook" type="button" class="btn btn-danger">Xóa sách</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="successfulremovebookreservationalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-success successfulalert" role="alert"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--script-->
+            <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                var removerow;
+                $(document).ready(function () {
+
+
+
+                    $('#reservebook').click(function () {
+
+                        $.ajax({
+                            method: "GET",
+                            url: "/home/RemoveReservedBook",
+                            data:{bookid:parseInt(value)},
+                            dataType: "text",
+                            success:function (string) {
+                                $('#removereservedbook').modal('hide');
+                                $('div.successfulalert').text('Hủy đăng kí mượn sách '+string+' thành công');
+                                removerow.remove();
+                                $('#successfulremovebookreservationalert').modal('show');
+
+                            }
+                        });
+                    });
+                   $('button.removebook').click(function () {
+                        $('#removereservedbook').modal('show');
+                        value = $(this).parent().parent().children('.bookid').val();
+                        removerow = $(this).parent().parent();
+//                        alert(value);
+                   })
+                });
+            </script>
+        </div>
+
+    </body>
+</html>

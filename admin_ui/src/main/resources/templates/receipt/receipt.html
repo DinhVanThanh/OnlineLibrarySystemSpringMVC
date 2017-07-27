@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:include="template/layout :: page">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Receipt</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Yêu cầu đặt mua sách</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a th:href="@{/admin/AddReceiptForm}"><button type="button" class="btn btn-primary">Thêm hóa đơn mới</button></a>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <form  th:action="@{/admin/SearchReceipt}" th:method="GET">
+                                    <div class="input-group">
+
+                                        <input id="search" name="search" type="text" class="form-control"   placeholder="Tìm kiếm..." />
+                                        <div class="input-group-btn">
+                                            <!-- Button and dropdown menu -->
+                                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                            <!--<div class="btn-group" role="group">-->
+                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Lọc  <span class="caret"></span>
+                                            </button>
+                                            <ul class="list-group dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li id="code" class="list-group-item"><input type="radio" class="flat" checked="checked" name="iCheck"/> Mã mua sách </li>
+                                                <li id="code" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tên độc giả </li>
+                                                <li id="name" class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Mã số sách  </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Tên sách   </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày mua </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Ngày chỉnh sửa </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/>Ngày phê duyệt </li>
+                                                <li class="list-group-item"><input type="radio" class="flat"  name="iCheck"/> Trạng thái </li>
+
+                                            </ul>
+                                            <!--</div>-->
+                                        </div>
+
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th>
+                                                <input type="checkbox" id="check-all" class="flat"/>
+                                            </th>
+                                            <th class="column-title">Mã hóa đơn</th>
+                                            <th class="column-title">Độc giả</th>
+                                            <th class="column-title">Ngày tạo</th>
+                                            <th class="column-title">Trạng thái</th>
+                                            <th class="column-title">Chi tiết </th>
+                                            <th class="column-title">Chỉnh sửa</th>
+                                            <th class="column-title">Xóa</th>
+
+
+                                            <th class="bulk-actions" colspan="7">
+                                                <a class="antoo" style="color:#fff; font-weight:500;">Chọn tất cả( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr class="even pointer" th:each="item:${receipts}">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records"/>
+                                            </td>
+                                            <td class=" " th:text="${item.id}"></td>
+                                            <td class=" " th:text="${item.bookOrder.reader.name}"></td>
+                                            <td class=" " th:text="${#dates.format(item.createDate, 'dd/MM/yyyy')}"></td>
+                                            <td class=" " th:text="${item.status}"></td>
+                                            <td class=" "><button type="button" class="btn btn-info receiptdetail" data-toggle="modal" data-target=".detail-example-modal-lg"><i class="fa fa-eye"></i></button> </td>
+                                            <td class=" "><a th:href="@{/admin/EditReceiptFrom(receiptid=${item.id})}"><button type="button" class="btn btn-danger"><i class="fa fa-edit"></i></button> </a> </td>
+                                            <td class=" "><button type="button" class="btn btn-danger deletereceipt" data-toggle="modal" data-target=".delete-example-modal-lg"><i class="fa fa-trash"></i></button></td>
+                                            <input type="hidden" th:value="${item.id}" class="receiptid"/>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <ul style="margin-left: 75%" class="pagination">
+                                    <li th:if="${pagenumber > 1}">
+                                        <a th:href="@{/admin/Receipt(pagenum=${pagenumber - 1})}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="pag : ${pagination}" th:classappend="${pag == pagenumber}?'active'">
+                                        <a th:text="${pag}" th:href="@{/admin/Receipt(pagenum=${pag})}"></a>
+                                    </li>
+                                    <li th:if="!${pagenumber >= totalpage}">
+                                        <a th:href="@{/admin/Receipt(pagenum=${pagenumber + 1})}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Modals-->
+            <div id="modaldetail" class="modal fade detail-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Thông tin sách</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel-group bookdetail" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+
+            <div id="modalalert" class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div id="alertcontent" class="alert alert-success"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <div id="modeldeletereceipt" class="modal fade delete-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="alertdialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Bạn có chắc chắn muốn xóa?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button id="delete" type="button" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+
+            <!--Modals-->
+            <!--Script-->
+            <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+            <script type="text/javascript">
+                var value;
+                var html;
+                $(document).ready(function () {
+//                   book order detail
+                    $('.receiptdetail').click(function () {
+                        value = $(this).parent().parent().children('.receiptid').val(); 
+                        $.ajax({
+                            method: "GET",
+                            dataType:"text",
+                            url: "/admin/ReceiptDetail",
+                            data: { receiptid: value },
+                            success:function (message) {
+
+                                html = '';
+                                var json = JSON.parse(message);
+                                $.each(json, function (key, values) {
+                                    html += '<div class="panel panel-custom">'+
+                                        '<div class="panel-heading" role="tab" id="headingOne">'+
+                                        '<h4 class="panel-title">'+
+                                        '<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+
+                                        '<b>Tên sách :</b>'+values.title+
+                                        '<br/>'+
+                                        '<b>Số lượng :</b>'+values.quantity+
+                                        '</a>'+
+                                        '</h4>'+
+                                        '</div>'+
+                                        '<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+                                        '<div class="panel-body animated zoomOut">'+
+                                        '<form class="form-horizontal">'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Tên sách</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+values.title+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Thể loại</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+values.category+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Tác giả</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+values.author+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="form-group">'+
+                                        '<label class="col-sm-2 control-label">Nhà xuất bản</label>'+
+                                        '<div class="col-sm-10">'+
+                                        '<p class="form-control-static">'+values.publisher+'</p>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</form>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>';
+                                });
+                                $('.bookdetail').html(html);
+                                $('#modaldetail').modal('show');
+                            }
+                        });
+                    });
+                    var deleterow;
+//                   delete book order
+                    $('.deletereceipt').click(function () {
+                        value = $(this).parent().parent().children('.receiptid').val();
+                        $('#modeldeletereceipt').modal('show');
+                        deleterow = $(this).parent().parent();
+                    });
+                    $('#delete').click(function () {
+
+                        $.ajax({
+                            method: "GET",
+                            dataType:"text",
+                            url: "/admin/DeleteReceipt",
+                            data: { receiptid: value },
+                            success:function (message) {
+
+                                $('#modeldeletereceipt').modal('hide');
+                                deleterow.remove();
+                                $('#alertcontent').text('Đã xóa hóa đơn có mã là '+message+' thành công');
+                                $('#modalalert').modal('show');
+
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>
